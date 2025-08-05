@@ -11,7 +11,7 @@ export default function LandingPage() {
         <div className="container flex h-14 items-center">
           <Link href="/" className="flex items-center gap-2 font-semibold font-headline">
             <PenTool className="h-6 w-6 text-primary" />
-            <span className="text-lg">CopySpark</span>
+            <span className="text-lg">Writello</span>
           </Link>
           <nav className="ml-auto flex items-center gap-4 sm:gap-6">
             <Link href="#features" className="text-sm font-medium hover:underline underline-offset-4">Features</Link>
@@ -30,7 +30,7 @@ export default function LandingPage() {
               Generate Brilliant Copy in Seconds with AI
             </h1>
             <p className="max-w-2xl mx-auto text-lg text-muted-foreground mb-8">
-              CopySpark is your AI-powered assistant for creating high-converting ad copy, engaging social media posts, and SEO-optimized content.
+              Writello is your AI-powered assistant for creating high-converting ad copy, engaging social media posts, and SEO-optimized content.
             </p>
             <Link href="/dashboard">
               <Button size="lg" className="bg-accent hover:bg-accent/90">
@@ -96,7 +96,7 @@ export default function LandingPage() {
             <div className="container grid md:grid-cols-2 gap-16 items-center">
                 <div>
                     <h2 className="text-3xl md:text-4xl font-bold font-headline mb-6">Works Where You Do</h2>
-                    <p className="text-muted-foreground mb-8">CopySpark is designed to be a seamless part of your workflow. The intuitive interface and powerful features make it easy to get from idea to published content in minutes.</p>
+                    <p className="text-muted-foreground mb-8">Writello is designed to be a seamless part of your workflow. The intuitive interface and powerful features make it easy to get from idea to published content in minutes.</p>
                     <ul className="space-y-4">
                         <li className="flex items-start gap-4">
                             <div className="bg-primary text-primary-foreground rounded-full h-6 w-6 flex items-center justify-center shrink-0 mt-1">✓</div>
@@ -122,7 +122,7 @@ export default function LandingPage() {
 
       <footer className="border-t py-8">
         <div className="container flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-muted-foreground">&copy; {new Date().getFullYear()} CopySpark. All rights reserved.</p>
+          <p className="text-sm text-muted-foreground">&copy; {new Date().getFullYear()} Writello. All rights reserved.</p>
           <div className="flex items-center gap-4">
             <Link href="#" className="text-sm hover:underline">Privacy Policy</Link>
             <Link href="#" className="text-sm hover:underline">Terms of Service</Link>
