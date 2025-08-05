@@ -3,7 +3,7 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
-  title: 'Writello',
+  title: 'Writomate',
   description: 'AI-Powered Copywriting Assistant',
 };
 
@@ -27,3 +27,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+    
