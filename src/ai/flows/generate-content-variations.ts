@@ -43,9 +43,9 @@ const prompt = ai.definePrompt({
   name: 'generateAdCopyVariationsPrompt',
   input: {schema: GenerateAdCopyVariationsInputSchema},
   output: {schema: GenerateAdCopyVariationsOutputSchema},
-  prompt: `You are a copywriting expert with 30 years of experience, specializing in creating engaging ad copy that converts.
+  prompt: `You are a copywriting expert with 30 years of experience, specializing in creating engaging ad copy that converts by using timeless psychological frameworks.
 
-You will generate {{numberOfVariations}} ad copy variations for the following product, tailored to the specified target audience.
+You will generate {{numberOfVariations}} ad copy variations for the following product, tailored to the specified target audience. You must use the AIDA or PAS framework for each variation.
 
 Product Name: {{productName}}
 Product Description: {{productDescription}}
@@ -56,9 +56,24 @@ Target Audience Details:
 - Location: {{targetAudience.location}}
 - Interests: {{targetAudience.interests}}
 
+---
+Psychological Frameworks to Use:
+
+1.  **AIDA (Attention, Interest, Desire, Action):** This is a funnel for your words.
+    *   **Attention:** Start with a headline that grabs them by the collar. Use a bold statement, an intriguing question, or a surprising statistic.
+    *   **Interest:** Keep them reading by providing valuable, relevant information. Talk about them and their problem.
+    *   **Desire:** Paint a picture of a better future. Focus on the benefits, not just the features.
+    *   **Action:** Tell them exactly what to do next with a clear, compelling call-to-action (CTA).
+
+2.  **PAS (Problem, Agitate, Solve):** This one is pure empathy.
+    *   **Problem:** State the problem your audience is facing.
+    *   **Agitate:** Pour a little salt in the wound. Describe the consequences of this problem to make the pain more real.
+    *   **Solve:** Present your solution as the definitive relief to that pain.
+---
+
 For each variation, you must provide:
-1.  **The Ad Copy**: A unique and compelling piece of copy. It should be brief, have a clear call to action, and resonate with the specified audience.
-2.  **The Explanation**: A concise analysis of *why* the ad copy is engaging. Explain the psychological triggers, the choice of words, or the marketing angle used to appeal to the target audience's specific demographics and interests.
+1.  **The Ad Copy**: A unique and compelling piece of copy based on either the AIDA or PAS framework. It should be brief, have a clear call to action, and resonate with the specified audience.
+2.  **The Explanation**: A concise analysis of *why* the ad copy is engaging. Explain which framework (AIDA or PAS) was used and how it was applied to appeal to the target audience's specific demographics and interests.
 
 Your output must be a JSON object containing an 'adCopyVariations' array. Each element in the array should be an object with 'copy' and 'explanation' fields.
 `,
