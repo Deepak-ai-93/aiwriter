@@ -5,17 +5,18 @@ import { useState, type FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Copy, Home, Loader2, PenTool, Settings, Sparkles, Twitter, Users, Webhook, Newspaper, Languages, CreativeCommons, CircleUser } from 'lucide-react';
+import { Copy, Home, Loader2, PenTool, Settings, Sparkles, Twitter, Users, Webhook, Newspaper, Languages, CreativeCommons, CircleUser, Info } from 'lucide-react';
 
 import { generateAdCopyVariations, type GenerateAdCopyVariationsOutput } from '@/ai/flows/generate-content-variations';
 import { generateSocialMediaContent, type GenerateSocialMediaContentOutput } from '@/ai/flows/suggest-social-media-content';
 import { optimizeContentForSeo, type OptimizeContentForSeoOutput } from '@/ai/flows/optimize-for-seo';
 
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
@@ -23,17 +24,24 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarInset, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Textarea } from '@/components/ui/textarea';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useToast } from '@/hooks/use-toast';
 import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
 
 const TONES = ['Professional', 'Witty', 'Bold', 'Casual', 'Informative', 'Sarcastic', 'Friendly', 'Luxury'];
 const LANGUAGES = ['English', 'Spanish', 'French', 'German', 'Mandarin', 'Japanese', 'Portuguese'];
+const GENDERS = ['All', 'Female', 'Male', 'Non-binary'];
 
 const adCopySchema = z.object({
   productName: z.string().min(2, { message: 'Product name is required.' }),
   productDescription: z.string().min(10, { message: 'Description must be at least 10 characters.' }),
-  targetAudience: z.string().min(2, { message: 'Target audience is required.' }),
+  targetAudience: z.object({
+    ageRange: z.string().min(2, { message: 'Age range is required (e.g., 25-35).' }),
+    gender: z.string(),
+    location: z.string().min(2, { message: 'Location is required.' }),
+    interests: z.string().min(2, { message: 'Interests are required.' }),
+  }),
   numberOfVariations: z.coerce.number().min(1).max(5),
   tone: z.string(),
   language: z.string(),
@@ -65,7 +73,12 @@ export default function DashboardPage() {
     defaultValues: {
       productName: '',
       productDescription: '',
-      targetAudience: '',
+      targetAudience: {
+        ageRange: '25-40',
+        gender: GENDERS[0],
+        location: 'United States',
+        interests: 'Technology, Productivity',
+      },
       numberOfVariations: 3,
       tone: TONES[0],
       language: LANGUAGES[0],
@@ -242,9 +255,39 @@ export default function DashboardPage() {
                         <FormField control={adCopyForm.control} name="productDescription" render={({ field }) => (
                           <FormItem><FormLabel>Product Description</FormLabel><FormControl><Textarea placeholder="Describe your product's key features and benefits" {...field} /></FormControl><FormMessage /></FormItem>
                         )} />
-                        <FormField control={adCopyForm.control} name="targetAudience" render={({ field }) => (
-                          <FormItem><FormLabel>Target Audience</FormLabel><FormControl><Input placeholder="e.g., Tech enthusiasts, fitness lovers" {...field} /></FormControl><FormMessage /></FormItem>
-                        )} />
+
+                        <Accordion type="single" collapsible defaultValue="item-1">
+                          <AccordionItem value="item-1">
+                            <AccordionTrigger>
+                              <div className="flex items-center gap-2">
+                                <Users className="h-4 w-4" />
+                                <span className="font-medium">Detailed Audience Targeting</span>
+                              </div>
+                            </AccordionTrigger>
+                            <AccordionContent className="pt-4 space-y-4">
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <FormField control={adCopyForm.control} name="targetAudience.ageRange" render={({ field }) => (
+                                  <FormItem><FormLabel>Age Range</FormLabel><FormControl><Input placeholder="e.g., 25-35" {...field} /></FormControl><FormMessage /></FormItem>
+                                )} />
+                                <FormField control={adCopyForm.control} name="targetAudience.gender" render={({ field }) => (
+                                  <FormItem><FormLabel>Gender</FormLabel><Select onValueChange={field.onChange} defaultValue={field.value}><FormControl><SelectTrigger><SelectValue placeholder="Select a gender" /></SelectTrigger></FormControl><SelectContent>{GENDERS.map(g => <SelectItem key={g} value={g}>{g}</SelectItem>)}</SelectContent></Select><FormMessage /></FormItem>
+                                )} />
+                              </div>
+                              <FormField control={adCopyForm.control} name="targetAudience.location" render={({ field }) => (
+                                <FormItem><FormLabel>Location(s)</FormLabel><FormControl><Input placeholder="e.g., Urban areas, California" {...field} /></FormControl><FormMessage /></FormItem>
+                              )} />
+                              <FormField control={adCopyForm.control} name="targetAudience.interests" render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Interests & Behaviors</FormLabel>
+                                  <FormControl><Textarea placeholder="e.g., Tech enthusiasts, fitness lovers, bargain hunters" {...field} /></FormControl>
+                                  <FormDescription>Separate interests with commas.</FormDescription>
+                                  <FormMessage />
+                                </FormItem>
+                              )} />
+                            </AccordionContent>
+                          </AccordionItem>
+                        </Accordion>
+                        
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <FormField control={adCopyForm.control} name="tone" render={({ field }) => (
                             <FormItem><FormLabel>Tone of Voice</FormLabel><Select onValueChange={field.onChange} defaultValue={field.value}><FormControl><SelectTrigger><SelectValue placeholder="Select a tone" /></SelectTrigger></FormControl><SelectContent>{TONES.map(t => <SelectItem key={t} value={t}>{t}</SelectItem>)}</SelectContent></Select><FormMessage /></FormItem>
@@ -281,11 +324,20 @@ export default function DashboardPage() {
                           <Card key={index} className="bg-secondary/50">
                             <CardHeader className="flex flex-row items-start justify-between py-4">
                               <CardTitle className="text-base font-medium">Variation {index + 1}</CardTitle>
-                              <Button variant="ghost" size="icon" onClick={() => handleCopyToClipboard(variation, 'Variation')}>
+                              <Button variant="ghost" size="icon" onClick={() => handleCopyToClipboard(variation.copy, 'Variation')}>
                                 <Copy className="h-4 w-4" />
                               </Button>
                             </CardHeader>
-                            <CardContent className="pt-0"><p className="text-sm">{variation}</p></CardContent>
+                            <CardContent className="pt-0 space-y-4">
+                              <p className="text-sm">{variation.copy}</p>
+                              <div className="flex items-start gap-3 p-3 rounded-md bg-background/50">
+                                <Info className="h-5 w-5 text-accent flex-shrink-0 mt-0.5"/>
+                                <div>
+                                  <h4 className="font-semibold text-xs mb-1">Why it's engaging</h4>
+                                  <p className="text-xs text-muted-foreground">{variation.explanation}</p>
+                                </div>
+                              </div>
+                            </CardContent>
                           </Card>
                         ))}
                       </div>
@@ -425,7 +477,3 @@ export default function DashboardPage() {
 }
 
 const svg_seo_icon = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.72"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.72-1.72"/></svg>;
-
-    
-
-    
