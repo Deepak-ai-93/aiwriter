@@ -34,7 +34,7 @@ const prompt = ai.definePrompt({
   name: 'optimizeContentForSeoPrompt',
   input: {schema: OptimizeContentForSeoInputSchema},
   output: {schema: OptimizeContentForSeoOutputSchema},
-  prompt: `You are an SEO expert. Analyze the following content and suggest relevant keywords and metadata to improve its search engine ranking.
+  prompt: `You are a copywriting and SEO expert with 30 years of experience. Analyze the following content and suggest relevant keywords and metadata to improve its search engine ranking.
 
 Content: {{{content}}}
 

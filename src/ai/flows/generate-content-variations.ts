@@ -43,7 +43,7 @@ const prompt = ai.definePrompt({
   name: 'generateAdCopyVariationsPrompt',
   input: {schema: GenerateAdCopyVariationsInputSchema},
   output: {schema: GenerateAdCopyVariationsOutputSchema},
-  prompt: `You are an expert copywriter specializing in creating engaging ad copy that converts.
+  prompt: `You are a copywriting expert with 30 years of experience, specializing in creating engaging ad copy that converts.
 
 You will generate {{numberOfVariations}} ad copy variations for the following product, tailored to the specified target audience.
 

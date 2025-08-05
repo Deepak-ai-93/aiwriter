@@ -32,7 +32,7 @@ const prompt = ai.definePrompt({
   name: 'generateSocialMediaContentPrompt',
   input: {schema: GenerateSocialMediaContentInputSchema},
   output: {schema: GenerateSocialMediaContentOutputSchema},
-  prompt: `You are an expert social media manager.
+  prompt: `You are a social media manager and copywriting expert with 30 years of experience.
 
   You will generate social media content based on the provided copy, and suggest relevant hashtags to extend reach.
 
