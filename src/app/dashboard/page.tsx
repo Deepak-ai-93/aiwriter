@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState, type FC, useMemo } from 'react';
+import React, { useState, type FC, useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -457,5 +457,3 @@ export default function DashboardPageWrapper() {
     </React.Suspense>
   )
 }
-
-    
