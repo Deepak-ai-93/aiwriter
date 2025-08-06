@@ -427,12 +427,12 @@ function DashboardPage() {
           </SidebarFooter>
         </Sidebar>
         <SidebarInset>
-          <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background px-6">
+          <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background px-4 sm:px-6">
             <SidebarTrigger className="md:hidden" />
             <h1 className="text-xl font-semibold font-headline hidden sm:block">{pageTitle}</h1>
-            <div className="ml-auto flex items-center gap-4">
-              <Button variant="outline">View Plans</Button>
-              <Button className="bg-accent hover:bg-accent/90">
+            <div className="ml-auto flex items-center gap-2 sm:gap-4">
+              <Button variant="outline" size="sm">View Plans</Button>
+              <Button className="bg-accent hover:bg-accent/90" size="sm">
                 <Sparkles className="h-4 w-4 mr-2" />
                 Upgrade
               </Button>

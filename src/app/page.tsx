@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, PenTool, Sparkles, Twitter } from "lucide-react";
+import { ArrowRight, PenTool, Twitter } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -8,16 +8,16 @@ export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-14 items-center">
+        <div className="container flex h-14 items-center px-4 sm:px-6">
           <Link href="/" className="flex items-center gap-2 font-semibold font-headline">
             <PenTool className="h-6 w-6 text-primary" />
             <span className="text-lg">Writomate</span>
           </Link>
-          <nav className="ml-auto flex items-center gap-4 sm:gap-6">
-            <Link href="#features" className="text-sm font-medium hover:underline underline-offset-4">Features</Link>
-            <Link href="#pricing" className="text-sm font-medium hover:underline underline-offset-4">Pricing</Link>
+          <nav className="ml-auto flex items-center gap-2 sm:gap-4">
+            <Link href="#features" className="text-sm font-medium hover:underline underline-offset-4 hidden sm:inline-block">Features</Link>
+            <Link href="#pricing" className="text-sm font-medium hover:underline underline-offset-4 hidden sm:inline-block">Pricing</Link>
             <Link href="/dashboard">
-              <Button>Get Started</Button>
+              <Button size="sm">Get Started</Button>
             </Link>
           </nav>
         </div>
@@ -25,8 +25,8 @@ export default function LandingPage() {
 
       <main className="flex-1">
         <section className="py-20 md:py-32">
-          <div className="container text-center">
-            <h1 className="text-4xl md:text-6xl font-bold font-headline tracking-tighter mb-6">
+          <div className="container text-center px-4 sm:px-6">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold font-headline tracking-tighter mb-6">
               Generate Brilliant Copy in Seconds with AI
             </h1>
             <p className="max-w-2xl mx-auto text-lg text-muted-foreground mb-8">
@@ -41,7 +41,7 @@ export default function LandingPage() {
         </section>
 
         <section id="features" className="py-20 md:py-32 bg-secondary">
-          <div className="container">
+          <div className="container px-4 sm:px-6">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold font-headline">Features for Every Marketer</h2>
               <p className="max-w-xl mx-auto text-muted-foreground mt-4">
@@ -93,7 +93,7 @@ export default function LandingPage() {
         </section>
         
         <section className="py-20 md:py-32">
-            <div className="container grid md:grid-cols-2 gap-16 items-center">
+            <div className="container grid md:grid-cols-2 gap-16 items-center px-4 sm:px-6">
                 <div>
                     <h2 className="text-3xl md:text-4xl font-bold font-headline mb-6">Works Where You Do</h2>
                     <p className="text-muted-foreground mb-8">Writomate is designed to be a seamless part of your workflow. The intuitive interface and powerful features make it easy to get from idea to published content in minutes.</p>
@@ -112,8 +112,8 @@ export default function LandingPage() {
                         </li>
                     </ul>
                 </div>
-                <div>
-                    <Image src="https://placehold.co/600x400.png" alt="Dashboard Screenshot" width={600} height={400} className="rounded-xl shadow-2xl" data-ai-hint="dashboard screenshot" />
+                <div className="w-full h-auto">
+                    <Image src="https://placehold.co/600x400.png" alt="Dashboard Screenshot" width={600} height={400} className="rounded-xl shadow-2xl w-full h-auto" data-ai-hint="dashboard screenshot" />
                 </div>
             </div>
         </section>
@@ -121,8 +121,8 @@ export default function LandingPage() {
       </main>
 
       <footer className="border-t py-8">
-        <div className="container flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-muted-foreground">&copy; {new Date().getFullYear()} Writomate. All rights reserved.</p>
+        <div className="container flex flex-col md:flex-row items-center justify-between gap-4 px-4 sm:px-6">
+          <p className="text-sm text-muted-foreground text-center md:text-left">&copy; {new Date().getFullYear()} Writomate. All rights reserved.</p>
           <div className="flex items-center gap-4">
             <Link href="#" className="text-sm hover:underline">Privacy Policy</Link>
             <Link href="#" className="text-sm hover:underline">Terms of Service</Link>
@@ -132,5 +132,3 @@ export default function LandingPage() {
     </div>
   );
 }
-
-    
